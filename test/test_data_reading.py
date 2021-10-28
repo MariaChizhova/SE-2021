@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import string
 import random
+from sklearn.preprocessing import MinMaxScaler
 
 random.seed = 0
 
@@ -57,4 +58,12 @@ def test_one_hot_encoded():
     df_check = df_check.reindex(sorted(df_check.columns), axis=1)
     assert np.allclose(df_ans.to_numpy(), df_check.to_numpy())
 
+
+def test_normalize():
+    data = np.array([[-1, 2], [-0.5, 6], [0, 10], [1, 18]])
+    scaler = MinMaxScaler()
+    scaler.fit(data)
+    ans = scaler.transform(data)
+    check = hermes.stroke_regressor.normalize(data)
+    assert np.allclose(ans, check)
 
