@@ -21,6 +21,7 @@ jobs:
         run: python3 -m mypy hermes test
 
       - name: coverage 95%
-        run: coverage run -m pytest test
-        run: coverage report --fail-under 95
+        run: |
+          coverage run -m pytest test
+          coverage report --fail-under 95
 
