@@ -6,6 +6,9 @@ import numpy as np
 import string
 import random
 
+random.seed = 0
+
+
 def test_read_data():
     file_loc = '/tmp/simple.csv'
     with open(file_loc, 'w') as f:
@@ -33,9 +36,9 @@ def get_random_string(n):
 
 def test_one_hot_encoded():
     leng = np.reshape(list(map(get_random_string, range(1, 3*4+1))), (4, 3))
-    mx = np.array(np.random.rand(4, 3)*3, dtype=np.int)
+    mx = np.array(np.random.rand(4, 3)*3, dtype=np.int64)
     data = []
-    ans = np.zeros((4, 9), dtype=np.int)
+    ans = np.zeros((4, 9), dtype=np.int64)
     for (i, row) in enumerate(mx):
         data.append([])
         for (j, val) in enumerate(row):
@@ -48,5 +51,10 @@ def test_one_hot_encoded():
         cols.append(f"{name}_{leng[i][2]}")
     df_q = pandas.DataFrame(data=data, columns=leng[3])
     df_ans = pandas.DataFrame(data=ans, columns=cols)
+    df_ans = df_ans.loc[:, (df_ans != 0).any(axis=0)]
     df_check = hermes.stroke_regressor.one_hot(df_q)
-    assert df_ans.equals(df_check)
+    df_ans = df_ans.reindex(sorted(df_ans.columns), axis=1)
+    df_check = df_check.reindex(sorted(df_check.columns), axis=1)
+    assert np.allclose(df_ans.to_numpy(), df_check.to_numpy())
+
+
