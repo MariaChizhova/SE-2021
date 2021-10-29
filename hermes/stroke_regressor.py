@@ -1,15 +1,18 @@
+"""Hermes stroke regressor tools"""
+
+from typing import AnyStr
 import pandas as pd  # type: ignore
 import numpy as np
-from typing import AnyStr
 
 import sklearn.preprocessing
 
 
-def read_data(file: AnyStr):
+def read_data(file: AnyStr) -> pd.DataFrame:
+    """Reads data from csv """
     return pd.read_csv(file)
 
 
-def one_hot(dataframe: pd.DataFrame):
+def one_hot(dataframe: pd.DataFrame) -> pd.DataFrame:
     columns = dataframe.select_dtypes(include="object")
     for c in columns:
         values = dataframe[c].values
@@ -20,8 +23,9 @@ def one_hot(dataframe: pd.DataFrame):
         dataframe.drop([c], axis=1, inplace=True)
     return dataframe
 
-def normalize(dataframe: pd.DataFrame, type='minmax'):
-    if type == 'minmax':
+
+def normalize(dataframe: pd.DataFrame, scale_type='minmax') -> pd.DataFrame:
+    if scale_type == 'minmax':
         scaler = sklearn.preprocessing.MinMaxScaler()
-    scaler.fit(dataframe)
-    return scaler.transform(dataframe)
+        scaler.fit(dataframe)
+        return scaler.transform(dataframe)
