@@ -27,5 +27,9 @@ def one_hot(dataframe: pd.DataFrame) -> pd.DataFrame:
 def normalize(dataframe: pd.DataFrame, scale_type='minmax') -> pd.DataFrame:
     if scale_type == 'minmax':
         scaler = sklearn.preprocessing.MinMaxScaler()
-        scaler.fit(dataframe)
-        return scaler.transform(dataframe)
+    elif scale_type == 'standard':
+        scaler = sklearn.preprocessing.StandardScaler()
+    scaler.fit(dataframe)
+    return scaler.transform(dataframe)
+
+
