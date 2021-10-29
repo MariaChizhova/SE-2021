@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
+from typing import AnyStr
+
+import sklearn.preprocessing
 
 
-def read_data(file):
+def read_data(file: AnyStr):
     return pd.read_csv(file)
 
 
@@ -17,4 +20,8 @@ def one_hot(dataframe: pd.DataFrame):
         dataframe.drop([c], axis=1, inplace=True)
     return dataframe
 
-
+def normalize(dataframe: pd.DataFrame, type='minmax'):
+    if type == 'minmax':
+        scaler = sklearn.preprocessing.MinMaxScaler()
+    scaler.fit(dataframe)
+    return scaler.transform(dataframe)

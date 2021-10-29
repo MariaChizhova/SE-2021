@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import string
 import random
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 random.seed = 0
 
@@ -59,11 +59,14 @@ def test_one_hot_encoded():
     assert np.allclose(df_ans.to_numpy(), df_check.to_numpy())
 
 
-def test_normalize():
+def test_normalize_minmax():
     data = np.array([[-1, 2], [-0.5, 6], [0, 10], [1, 18]])
-    scaler = MinMaxScaler()
-    scaler.fit(data)
-    ans = scaler.transform(data)
-    check = hermes.stroke_regressor.normalize(data)
+    ans = (data - np.nanmin(data, axis=0))/(np.nanmax(data, axis=0) - np.nanmin(data, axis=0))
+    check = hermes.stroke_regressor.normalize(pd.DataFrame(data))
     assert np.allclose(ans, check)
 
+def test_normalize_standard():
+    data = np.random.rand(7, 12)
+    ans = (data - data.mean(axis=0)) / data.std(axis=0)
+    check = hermes.stroke_regressor.normalize(data, type='standard')
+    assert np.allclose(ans, check)
