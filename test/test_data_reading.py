@@ -190,7 +190,7 @@ def test_top_coef():
     a = data.astype(np.float64).to_numpy()
     coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1])
     ans = hermes.stroke_regressor.top_coef(coef, parameters[1:])
-    assert ans == 'smoking_status_Unknown'
+    assert ans == 'smoking_status_formerly smoked'
 
 
 def test_bottom_coef():
@@ -204,3 +204,12 @@ def test_bottom_coef():
     ans = hermes.stroke_regressor.bottom_coef(coef, parameters[1:])
     assert ans == 'avg_glucose_level'
 
+
+def test_intercept():
+    file_loc = 'data/healthcare-dataset-stroke-data.csv'
+    data = hermes.stroke_regressor.read_data(file_loc)
+    data = hermes.stroke_regressor.one_hot(data)
+    data.fillna(data['bmi'].mean(), inplace=True)
+    a = data.astype(np.float64).to_numpy()
+    intercept = hermes.stroke_regressor.get_intercept(a[1:, 1:-1], a[1:, -1])
+    assert abs(intercept - 1) < 0.0001
