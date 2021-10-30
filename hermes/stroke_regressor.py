@@ -73,3 +73,7 @@ def linear_regression(X: np.ndarray, y: np.ndarray) -> np.ndarray:
 
 def top_coef(coefs: np.ndarray, parameters: np.ndarray) -> str:
     return parameters[abs(coefs).argmax()]
+
+
+def bottom_coef(coefs: np.ndarray, parameters: np.ndarray) -> str:
+    return parameters[abs(coefs).argmin()]
