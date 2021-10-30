@@ -171,7 +171,7 @@ def test_linear_regression():
     data = hermes.stroke_regressor.one_hot(data)
     data.fillna(data['bmi'].mean(), inplace=True)
     a = data.astype(np.float64).to_numpy()
-    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1])
+    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'coef')
     assert np.allclose(coef, np.array([-1.1574462149573293e-18, 3.419088876507203e-17, -3.9205165534584025e-16,
                                        -1.4155062715314148e-17, 3.927994092015258e-17, -9.523883523664444e-16,
                                        -5.683557029752764e-16, -7.00727650591634e-16, 9.977235206953956e-16,
@@ -188,7 +188,7 @@ def test_top_coef():
     parameters = data.columns
     data.fillna(data['bmi'].mean(), inplace=True)
     a = data.astype(np.float64).to_numpy()
-    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1])
+    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'coef')
     ans = hermes.stroke_regressor.top_coef(coef, parameters[1:])
     assert ans == 'smoking_status_formerly smoked'
 
@@ -200,7 +200,7 @@ def test_bottom_coef():
     parameters = data.columns
     data.fillna(data['bmi'].mean(), inplace=True)
     a = data.astype(np.float64).to_numpy()
-    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1])
+    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'coef')
     ans = hermes.stroke_regressor.bottom_coef(coef, parameters[1:])
     assert ans == 'avg_glucose_level'
 
@@ -211,5 +211,5 @@ def test_intercept():
     data = hermes.stroke_regressor.one_hot(data)
     data.fillna(data['bmi'].mean(), inplace=True)
     a = data.astype(np.float64).to_numpy()
-    intercept = hermes.stroke_regressor.get_intercept(a[1:, 1:-1], a[1:, -1])
+    intercept = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'intercept')
     assert abs(intercept - 1) < 0.0001
