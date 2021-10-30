@@ -4,6 +4,7 @@ import string
 import random
 import pandas as pd  # type: ignore
 import numpy as np
+from pathlib import Path
 
 import hermes.stroke_regressor
 
@@ -95,13 +96,13 @@ def test_statistics_mean_age():
     female_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Female')
     other_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Other')
     result = len(data[data['gender'] == 'Male']) * male_age + \
-        len(data[data['gender'] == 'Female']) * female_age + \
-        len(data[data['gender'] == 'Other']) * other_age
+             len(data[data['gender'] == 'Female']) * female_age + \
+             len(data[data['gender'] == 'Other']) * other_age
     assert abs(result - total) < 0.0001
     ever_married_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='ever_married', target='Yes')
     never_married_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='ever_married', target='No')
     result = len(data[data['ever_married'] == 'Yes']) * ever_married_age + \
-        len(data[data['ever_married'] == 'No']) * never_married_age
+             len(data[data['ever_married'] == 'No']) * never_married_age
     assert abs(result - total) < 0.0001
 
 
@@ -147,3 +148,19 @@ def test_remove_col():
         new_data = data.drop([col], axis=1)
         check_data = hermes.stroke_regressor.remove_col(dataframe=data, col=col)
         assert check_data.equals(new_data)
+
+
+def test_create_bar_plot():
+    gender = ['Male', 'Female', 'Other']
+    total_per_gender = [100, 120, 50]
+    name = "bar_chart"
+    labels = ["gender", "count"]
+    title = "total per gender"
+    plot = hermes.stroke_regressor.create_plot(name=name, data=[gender, total_per_gender], labels=labels, title=title,
+                                               plot_type='bar')
+    result = []
+    for rect in plot:
+        height = rect.get_height()
+        result.append(height)
+    assert Path('data/' + name + '.png').exists()
+    assert result == [100, 120, 50]
