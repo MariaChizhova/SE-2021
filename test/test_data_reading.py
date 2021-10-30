@@ -213,3 +213,19 @@ def test_intercept():
     a = data.astype(np.float64).to_numpy()
     intercept = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'intercept')
     assert abs(intercept - 1) < 0.0001
+
+
+def test_score():
+    file_loc = 'data/healthcare-dataset-stroke-data.csv'
+    data = hermes.stroke_regressor.read_data(file_loc)
+    data = hermes.stroke_regressor.one_hot(data)
+    data.fillna(data['bmi'].mean(), inplace=True)
+    a = data.astype(np.float64).to_numpy()
+    X = a[1:, 1:-1]
+    y = a[1:, -1]
+    score = hermes.stroke_regressor.linear_regression(X, y, 'score')
+    coef = hermes.stroke_regressor.linear_regression(X, y, 'coef')
+    intercept = hermes.stroke_regressor.linear_regression(X, y, 'intercept')
+    total = np.sum(y - np.mean(y) ** 2)
+    residual = np.sum((y - (X @ coef + intercept)) ** 2)
+    assert score == 1 - residual / total
