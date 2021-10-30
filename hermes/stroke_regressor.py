@@ -31,3 +31,8 @@ def normalize(dataframe: pd.DataFrame, scale_type='minmax') -> pd.DataFrame:
         scaler = sklearn.preprocessing.StandardScaler()
     scaler.fit(dataframe)
     return scaler.transform(dataframe)
+
+
+def statistics(dataframe: pd.DataFrame, stats_type='mean_age', col='ever_married', target='Yes') -> int:
+    if stats_type == 'mean_age':
+        return dataframe[dataframe[col] == target]['age'].mean()
