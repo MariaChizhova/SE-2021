@@ -4,6 +4,7 @@ import string
 import random
 import pandas as pd  # type: ignore
 import numpy as np
+
 import hermes.stroke_regressor
 
 random.seed(0)
@@ -44,15 +45,15 @@ def test_one_hot_encoded():
     contains a set of values, converts it
     into len(set) with 0 and 1, pointing
     if this entry has certain value from set or not"""
-    leng = np.reshape(list(map(get_random_string, range(1, 3*4+1))), (4, 3))
-    mx = np.array(np.random.rand(4, 3)*3, dtype=np.int64)
+    leng = np.reshape(list(map(get_random_string, range(1, 3 * 4 + 1))), (4, 3))
+    mx = np.array(np.random.rand(4, 3) * 3, dtype=np.int64)
     data = []
     ans = np.zeros((4, 9), dtype=np.int64)
     for (i, row) in enumerate(mx):
         data.append([])
         for (j, val) in enumerate(row):
             data[-1].append(leng[j][val])
-            ans[i][3*j + val] = 1
+            ans[i][3 * j + val] = 1
     cols = []
     for (i, name) in enumerate(leng[3]):
         cols.append(f"{name}_{leng[i][0]}")
@@ -79,3 +80,26 @@ def test_normalize_standard():
     ans = (data - data.mean(axis=0)) / data.std(axis=0)
     check = hermes.stroke_regressor.normalize(data, scale_type='standard')
     assert np.allclose(ans, check)
+
+
+def test_statistics_mean_age():
+    file_loc = 'data/healthcare-dataset-stroke-data.csv'
+    data = hermes.stroke_regressor.read_data(file_loc)
+    total = sum(data['age'])
+    hypertension_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='hypertension', target=1)
+    not_hypertension_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='hypertension', target=0)
+    result = len(data[data['hypertension'] == 1]) * hypertension_age + len(
+        data[data['hypertension'] == 0]) * not_hypertension_age
+    assert abs(result - total) < 0.0001
+    male_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Male')
+    female_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Female')
+    other_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Other')
+    result = len(data[data['gender'] == 'Male']) * male_age + \
+             len(data[data['gender'] == 'Female']) * female_age + \
+             len(data[data['gender'] == 'Other']) * other_age
+    assert abs(result - total) < 0.0001
+    ever_married_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='ever_married', target='Yes')
+    never_married_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='ever_married', target='No')
+    result = len(data[data['ever_married'] == 'Yes']) * ever_married_age + \
+             len(data[data['ever_married'] == 'No']) * never_married_age
+    assert abs(result - total) < 0.0001

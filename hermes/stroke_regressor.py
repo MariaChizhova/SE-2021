@@ -31,5 +31,3 @@ def normalize(dataframe: pd.DataFrame, scale_type='minmax') -> pd.DataFrame:
         scaler = sklearn.preprocessing.StandardScaler()
     scaler.fit(dataframe)
     return scaler.transform(dataframe)
-
-
