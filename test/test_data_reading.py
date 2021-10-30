@@ -95,13 +95,13 @@ def test_statistics_mean_age():
     female_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Female')
     other_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Other')
     result = len(data[data['gender'] == 'Male']) * male_age + \
-             len(data[data['gender'] == 'Female']) * female_age + \
-             len(data[data['gender'] == 'Other']) * other_age
+        len(data[data['gender'] == 'Female']) * female_age + \
+        len(data[data['gender'] == 'Other']) * other_age
     assert abs(result - total) < 0.0001
     ever_married_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='ever_married', target='Yes')
     never_married_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='ever_married', target='No')
     result = len(data[data['ever_married'] == 'Yes']) * ever_married_age + \
-             len(data[data['ever_married'] == 'No']) * never_married_age
+        len(data[data['ever_married'] == 'No']) * never_married_age
     assert abs(result - total) < 0.0001
 
 
@@ -110,19 +110,19 @@ def test_statistics_stroke():
     data = hermes.stroke_regressor.read_data(file_loc)
     gender = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='gender', target='Male',
                                                 opposite_target='Female')
-    assert 'Male' == gender
+    assert gender == 'Male'
     residence_type = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='Residence_type', target='Urban',
                                                         opposite_target='Rural')
-    assert 'Urban' == residence_type
+    assert residence_type == 'Urban'
     ever_married = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='ever_married', target='Yes',
                                                       opposite_target='No')
-    assert 'Yes' == ever_married
+    assert ever_married == 'Yes'
     hypertension = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='hypertension', target=1,
                                                       opposite_target=0)
-    assert 1 == hypertension
+    assert hypertension == 1
     heart_disease = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='heart_disease', target=1,
                                                        opposite_target=0)
-    assert 1 == heart_disease
+    assert heart_disease == 1
 
 
 def test_add_data():
