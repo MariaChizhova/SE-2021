@@ -42,3 +42,8 @@ def statistics(dataframe: pd.DataFrame, stats_type='mean_age', col='ever_married
         sum_opposite_target = dataframe[dataframe[col] == opposite_target][stats_type].sum()
         cnt_opposite_target = (dataframe[col] == opposite_target).sum()
         return target if (sum_target / cnt_target) > (sum_opposite_target / cnt_opposite_target) else opposite_target
+
+
+def add_data(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:
+    dataframe1 = pd.concat([dataframe1, dataframe2]).drop_duplicates().reset_index(drop=True)
+    return dataframe1
