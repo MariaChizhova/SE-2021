@@ -33,6 +33,12 @@ def normalize(dataframe: pd.DataFrame, scale_type='minmax') -> pd.DataFrame:
     return scaler.transform(dataframe)
 
 
-def statistics(dataframe: pd.DataFrame, stats_type='mean_age', col='ever_married', target='Yes') -> int:
+def statistics(dataframe: pd.DataFrame, stats_type='mean_age', col='ever_married', target='Yes', opposite_target='No'):
     if stats_type == 'mean_age':
         return dataframe[dataframe[col] == target]['age'].mean()
+    if stats_type == 'stroke':
+        sum_target = dataframe[dataframe[col] == target][stats_type].sum()
+        cnt_target = (dataframe[col] == target).sum()
+        sum_opposite_target = dataframe[dataframe[col] == opposite_target][stats_type].sum()
+        cnt_opposite_target = (dataframe[col] == opposite_target).sum()
+        return target if (sum_target / cnt_target) > (sum_opposite_target / cnt_opposite_target) else opposite_target

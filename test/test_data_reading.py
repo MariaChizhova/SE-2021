@@ -112,10 +112,10 @@ def test_statistics_stroke():
                                                 opposite_target='Female')
     assert 'Male' == gender
     residence_type = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='Residence_type', target='Urban',
-                                                opposite_target='Rural')
+                                                        opposite_target='Rural')
     assert 'Urban' == residence_type
     ever_married = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='ever_married', target='Yes',
-                                                        opposite_target='No')
+                                                      opposite_target='No')
     assert 'Yes' == ever_married
     hypertension = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='hypertension', target=1,
                                                       opposite_target=0)
