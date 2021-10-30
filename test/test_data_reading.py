@@ -95,14 +95,13 @@ def test_statistics_mean_age():
     male_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Male')
     female_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Female')
     other_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='gender', target='Other')
-    result = len(data[data['gender'] == 'Male']) * male_age + \
-             len(data[data['gender'] == 'Female']) * female_age + \
-             len(data[data['gender'] == 'Other']) * other_age
+    result = len(data[data['gender'] == 'Male']) * male_age + len(data[data['gender'] == 'Female']) * female_age + len(
+        data[data['gender'] == 'Other']) * other_age
     assert abs(result - total) < 0.0001
     ever_married_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='ever_married', target='Yes')
     never_married_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='ever_married', target='No')
-    result = len(data[data['ever_married'] == 'Yes']) * ever_married_age + \
-             len(data[data['ever_married'] == 'No']) * never_married_age
+    result = len(data[data['ever_married'] == 'Yes']) * ever_married_age + len(
+        data[data['ever_married'] == 'No']) * never_married_age
     assert abs(result - total) < 0.0001
 
 
