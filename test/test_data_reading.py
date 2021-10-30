@@ -164,3 +164,20 @@ def test_create_bar_plot():
         result.append(height)
     assert Path('data/' + name + '.png').exists()
     assert result == [100, 120, 50]
+
+
+def test_linear_regression():
+    file_loc = 'data/healthcare-dataset-stroke-data.csv'
+    data = hermes.stroke_regressor.read_data(file_loc)
+    data = hermes.stroke_regressor.one_hot(data)
+    data.fillna(data['bmi'].mean(), inplace=True)
+    a = data.astype(np.float64).to_numpy()
+    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1])
+    assert np.allclose(coef, np.array([-1.1574462149573293e-18, 3.419088876507203e-17, -3.9205165534584025e-16,
+                                       -1.4155062715314148e-17, 3.927994092015258e-17, -9.523883523664444e-16,
+                                       -5.683557029752764e-16, -7.00727650591634e-16, 9.977235206953956e-16,
+                                       -2.080232712684715e-16, -2.7369826322273065e-16, 1.5374108564703447e-16,
+                                       1.4253092326172553e-17, -2.815903077890237e-17, 3.7470388052664107e-16,
+                                       -3.821081183930575e-16, 4.1102650480927346e-17, -7.306152541490587e-18,
+                                       -0.9999999999999997, -1.0000000000000002, -1.0000000000000004]))
+    
