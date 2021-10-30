@@ -180,4 +180,15 @@ def test_linear_regression():
                                        1.4253092326172553e-17, -2.815903077890237e-17, 3.7470388052664107e-16,
                                        -3.821081183930575e-16, 4.1102650480927346e-17, -7.306152541490587e-18,
                                        -0.9999999999999997, -1.0000000000000002, -1.0000000000000004]))
-    
+
+
+def test_top_coef():
+    file_loc = 'data/healthcare-dataset-stroke-data.csv'
+    data = hermes.stroke_regressor.read_data(file_loc)
+    data = hermes.stroke_regressor.one_hot(data)
+    parameters = data.columns
+    data.fillna(data['bmi'].mean(), inplace=True)
+    a = data.astype(np.float64).to_numpy()
+    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1])
+    ans = hermes.stroke_regressor.top_coef(coef, parameters[1:])
+    assert ans == 'smoking_status_Unknown'

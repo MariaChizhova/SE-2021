@@ -67,5 +67,5 @@ def create_plot(name: str, data: list, labels: list, title: str, plot_type='bar'
 
 
 def linear_regression(X: np.ndarray, y: np.ndarray) -> np.ndarray:
-    reg = LinearRegression().fit(X, y)
+    reg = LinearRegression(normalize=True).fit(X, y)
     return reg.coef_
