@@ -3,6 +3,7 @@
 from typing import AnyStr
 import pandas as pd  # type: ignore
 import numpy as np
+import matplotlib.pyplot as plt
 
 import sklearn.preprocessing
 
@@ -52,3 +53,13 @@ def add_data(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame
 def remove_col(dataframe: pd.DataFrame, col) -> pd.DataFrame:
     dataframe.drop([col], axis=1, inplace=True)
     return dataframe
+
+
+def create_plot(name: str, data: list, labels: list, title: str, plot_type='bar') -> plt:
+    if plot_type == 'bar':
+        fig = plt.bar(data[0], data[1])
+        plt.title(title)
+        plt.xlabel(labels[0])
+        plt.ylabel(labels[1])
+        plt.savefig('data/' + name + '.png')
+        return fig

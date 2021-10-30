@@ -1,10 +1,10 @@
 """Test of hermes"""
 
+from pathlib import Path
 import string
 import random
-import pandas as pd  # type: ignore
 import numpy as np
-from pathlib import Path
+import pandas as pd  # type: ignore
 
 import hermes.stroke_regressor
 
