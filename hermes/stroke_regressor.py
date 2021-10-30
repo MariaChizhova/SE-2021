@@ -4,6 +4,7 @@ from typing import AnyStr
 import pandas as pd  # type: ignore
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 import sklearn.preprocessing
 
@@ -63,3 +64,8 @@ def create_plot(name: str, data: list, labels: list, title: str, plot_type='bar'
         plt.ylabel(labels[1])
         plt.savefig('data/' + name + '.png')
         return fig
+
+
+def linear_regression(X: np.ndarray, y: np.ndarray) -> np.ndarray:
+    reg = LinearRegression().fit(X, y)
+    return reg.coef_
