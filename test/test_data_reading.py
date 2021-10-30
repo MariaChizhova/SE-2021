@@ -103,3 +103,23 @@ def test_statistics_mean_age():
     result = len(data[data['ever_married'] == 'Yes']) * ever_married_age + \
              len(data[data['ever_married'] == 'No']) * never_married_age
     assert abs(result - total) < 0.0001
+
+
+def test_statistics_stroke():
+    file_loc = 'data/healthcare-dataset-stroke-data.csv'
+    data = hermes.stroke_regressor.read_data(file_loc)
+    gender = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='gender', target='Male',
+                                                opposite_target='Female')
+    assert 'Male' == gender
+    residence_type = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='Residence_type', target='Urban',
+                                                opposite_target='Rural')
+    assert 'Urban' == residence_type
+    ever_married = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='ever_married', target='Yes',
+                                                        opposite_target='No')
+    assert 'Yes' == ever_married
+    hypertension = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='hypertension', target=1,
+                                                      opposite_target=0)
+    assert 1 == hypertension
+    heart_disease = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='heart_disease', target=1,
+                                                       opposite_target=0)
+    assert 1 == heart_disease
