@@ -72,6 +72,8 @@ def linear_regression(X: np.ndarray, y: np.ndarray, return_value: str):
         return reg.coef_
     elif return_value == 'intercept':
         return reg.intercept_
+    elif return_value == 'score':
+        return reg.score(X, y)
 
 
 def top_coef(coefs: np.ndarray, parameters: np.ndarray) -> str:
