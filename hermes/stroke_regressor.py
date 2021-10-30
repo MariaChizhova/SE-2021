@@ -47,3 +47,8 @@ def statistics(dataframe: pd.DataFrame, stats_type='mean_age', col='ever_married
 def add_data(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:
     dataframe1 = pd.concat([dataframe1, dataframe2]).drop_duplicates().reset_index(drop=True)
     return dataframe1
+
+
+def remove_col(dataframe: pd.DataFrame, col) -> pd.DataFrame:
+    dataframe.drop([col], axis=1, inplace=True)
+    return dataframe
