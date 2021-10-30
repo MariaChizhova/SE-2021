@@ -137,3 +137,13 @@ def test_add_data():
     assert result.shape == (data1.shape[0] + 1, data1.shape[1])
     assert len(result[result['id'] == 9999]) == 1
     assert len(result[result['id'] == 12095]) == 1
+
+
+def test_remove_col():
+    file_loc = 'data/healthcare-dataset-stroke-data.csv'
+    data = hermes.stroke_regressor.read_data(file_loc)
+    columns = data.columns
+    for col in columns:
+        new_data = data.drop([col], axis=1)
+        check_data = hermes.stroke_regressor.remove_col(dataframe=data, col=col)
+        assert check_data.equals(new_data)
