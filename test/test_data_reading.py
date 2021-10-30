@@ -123,3 +123,17 @@ def test_statistics_stroke():
     heart_disease = hermes.stroke_regressor.statistics(data, stats_type='stroke', col='heart_disease', target=1,
                                                        opposite_target=0)
     assert 1 == heart_disease
+
+
+def test_add_data():
+    file_loc = 'data/healthcare-dataset-stroke-data.csv'
+    data1 = hermes.stroke_regressor.read_data(file_loc)
+    cols = ['id', 'gender', 'age', 'hypertension', 'heart_disease', 'ever_married', 'work_type',
+            'Residence_type', 'avg_glucose_level', 'bmi', 'smoking_status', 'stroke']
+    person1 = [9999, 'Male', 38, 0, 0, 'No', 'Self-employed', 'Urba', 82.28, 24, 'formerly smoked', 1]
+    person2 = [12095, 'Female', 61, 0, 1, 'Yes', 'Govt_job', 'Rural', 120.46, 36.8, 'smokes', 1]
+    data2 = pd.DataFrame([person1, person2], columns=cols)
+    result = hermes.stroke_regressor.add_data(data1, data2)
+    assert result.shape == (data1.shape[0] + 1, data1.shape[1])
+    assert len(result[result['id'] == 9999]) == 1
+    assert len(result[result['id'] == 12095]) == 1
