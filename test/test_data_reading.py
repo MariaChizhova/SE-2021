@@ -190,7 +190,7 @@ def test_top_coef():
     a = data.astype(np.float64).to_numpy()
     coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'coef')
     ans = hermes.stroke_regressor.top_coef(coef, parameters[1:])
-    assert ans == 'smoking_status_formerly smoked'
+    assert ans == 'smoking_status_never smoked'
 
 
 def test_bottom_coef():
