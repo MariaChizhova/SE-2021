@@ -4,7 +4,7 @@ from pathlib import Path
 import string
 import random
 import numpy as np
-import pandas as pd  # type: ignore
+import pandas as pd
 
 import hermes.stroke_regressor
 
@@ -169,7 +169,7 @@ def test_linear_regression():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
     data = hermes.stroke_regressor.read_data(file_loc)
     data = hermes.stroke_regressor.one_hot(data)
-    data.fillna(data['bmi'].mean(), inplace=True)
+    data.fillna(data['bmi'].mean(), inplace=True)  # pylint: disable=unsubscriptable-object
     a = data.astype(np.float64).to_numpy()
     coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'coef')
     assert np.allclose(coef, np.array([-1.1574462149573293e-18, 3.419088876507203e-17, -3.9205165534584025e-16,
@@ -209,7 +209,7 @@ def test_intercept():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
     data = hermes.stroke_regressor.read_data(file_loc)
     data = hermes.stroke_regressor.one_hot(data)
-    data.fillna(data['bmi'].mean(), inplace=True)
+    data.fillna(data['bmi'].mean(), inplace=True)  # pylint: disable=unsubscriptable-object
     a = data.astype(np.float64).to_numpy()
     intercept = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'intercept')
     assert abs(intercept - 1) < 0.0001
@@ -219,7 +219,7 @@ def test_score():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
     data = hermes.stroke_regressor.read_data(file_loc)
     data = hermes.stroke_regressor.one_hot(data)
-    data.fillna(data['bmi'].mean(), inplace=True)
+    data.fillna(data['bmi'].mean(), inplace=True)  # pylint: disable=unsubscriptable-object
     a = data.astype(np.float64).to_numpy()
     X = a[1:, 1:-1]
     y = a[1:, -1]

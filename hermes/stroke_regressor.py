@@ -1,7 +1,7 @@
 """Hermes stroke regressor tools"""
 
 from typing import AnyStr
-import pandas as pd  # type: ignore
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
