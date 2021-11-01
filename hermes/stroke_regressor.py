@@ -67,7 +67,7 @@ def create_plot(name: str, data: list, labels: list, title: str, plot_type='bar'
 
 
 def linear_regression(X: np.ndarray, y: np.ndarray, return_value: str):
-    reg = LinearRegression(normalize=True).fit(X, y)
+    reg = LinearRegression().fit(X, y)
     if return_value == 'coef':
         return reg.coef_
     elif return_value == 'intercept':
