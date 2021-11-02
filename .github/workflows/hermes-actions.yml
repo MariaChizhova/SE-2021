@@ -10,7 +10,9 @@ jobs:
           python-version: '3.8'
 
       - name: Setup
-        run: ./init.sh python3
+        run: | 
+          ./init.sh python3
+          source venv/bin/activate
 
       - name: PyLint
         if: always()
@@ -26,7 +28,5 @@ jobs:
 
       - name: Coverage 95%
         if: always()
-        run: |
-          coverage run -m pytest test
-          coverage report --fail-under 95
+        run: ./tests.sh coverage95
 
