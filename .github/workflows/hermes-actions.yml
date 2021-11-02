@@ -10,9 +10,7 @@ jobs:
           python-version: '3.8'
 
       - name: Setup
-        run: | 
-          ./init.sh python3
-          source venv/bin/activate
+        run: ./init.sh python3
 
       - name: PyLint
         if: always()
