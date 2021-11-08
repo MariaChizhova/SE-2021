@@ -10,17 +10,25 @@ Project presentation is available [here](https://docs.google.com/presentation/d/
 
 The project is currently in an initial state.
 
-
 ## Roadmap
 
 The roadmap of the project is available [here](https://github.com/MariaChizhova/SE_2021/projects/1)
 
+## Acknowledgements
+
+Thanks to our teachers (Vladislav Tankov, Timofey Bryksin) for created this task!
 
 ## Contributors
 
 Maria Chizhova: @MariaChizhova
+
 Anna Potryasaeva: @annapotr
+
 Jura Khudyakov: @23jura23 
+
+## Contributing
+
+Pull requests are welcome!
 
 ## License
 
