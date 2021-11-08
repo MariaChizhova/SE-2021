@@ -13,8 +13,11 @@ The project is currently in an initial state.
 
 ## Roadmap
 
-The roadmap of the project is available [here](https://github.com/MariaChizhova/SE_2021/projects/1)
+The roadmap of the project is available [here](https://github.com/MariaChizhova/SE_2021/projects/3)
 
+## CHANGELOG
+
+The changelog of the project is available [here](https://github.com/MariaChizhova/SE_2021/blob/hw_04/CHANGELOG.md)
 
 ## Contributors
 
