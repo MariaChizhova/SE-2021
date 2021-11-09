@@ -15,3 +15,13 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * The server that accepts requests to get various statistics and returns the required result
+
+## [Version 1.2]
+
+
+### Fixed
+* Several bugs with tests
+
+### Added
+
+* Linear perceptron
