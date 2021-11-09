@@ -26,7 +26,7 @@ def one_hot(dataframe: pd.DataFrame) -> pd.DataFrame:
     return dataframe
 
 
-def normalize(dataframe: pd.DataFrame, scale_type='minmax') -> pd.DataFrame:
+def normalize(dataframe: pd.DataFrame, scale_type='minmax') -> np.ndarray:
     if scale_type == 'minmax':
         scaler = sklearn.preprocessing.MinMaxScaler()
     elif scale_type == 'standard':
@@ -72,8 +72,6 @@ def linear_regression(X: np.ndarray, y: np.ndarray, return_value: str = None):
         return reg.coef_
     elif return_value == 'intercept':
         return reg.intercept_
-    elif return_value == 'score':
-        return reg.score(X, y)
     else:
         return reg
 
