@@ -10,6 +10,12 @@ Project presentation is available [here](https://docs.google.com/presentation/d/
 
 The project is currently in an initial state.
 
+## Usage
+
+Run web application:  uvicorn hermes.endpoints:app --reload
+
+Run tests: python -m pytest test/test_data_reading.py
+
 ## Roadmap
 
 The roadmap of the project is available [here](https://github.com/MariaChizhova/SE_2021/projects/3)
