@@ -4,7 +4,7 @@ from typing import AnyStr
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Perceptron
 
 import sklearn.preprocessing
 
@@ -66,7 +66,7 @@ def create_plot(name: str, data: list, labels: list, title: str, plot_type='bar'
         return fig
 
 
-def linear_regression(X: np.ndarray, y: np.ndarray, return_value: str):
+def linear_regression(X: np.ndarray, y: np.ndarray, return_value: str = None):
     reg = LinearRegression().fit(X, y)
     if return_value == 'coef':
         return reg.coef_
@@ -74,6 +74,18 @@ def linear_regression(X: np.ndarray, y: np.ndarray, return_value: str):
         return reg.intercept_
     elif return_value == 'score':
         return reg.score(X, y)
+    else:
+        return reg
+
+
+def perceptron(X: np.ndarray, y: np.ndarray, return_value: str = None):
+    reg = Perceptron().fit(X, y)
+    if return_value == 'coef':
+        return reg.coef_
+    elif return_value == 'intercept':
+        return reg.intercept_
+    else:
+        return reg
 
 
 def top_coef(coefs: np.ndarray, parameters: np.ndarray) -> str:
@@ -81,4 +93,6 @@ def top_coef(coefs: np.ndarray, parameters: np.ndarray) -> str:
 
 
 def bottom_coef(coefs: np.ndarray, parameters: np.ndarray) -> str:
+    print(parameters)
+    print(coefs)
     return parameters[abs(coefs).argmin()]

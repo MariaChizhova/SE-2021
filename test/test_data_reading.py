@@ -1,10 +1,10 @@
 """Test of hermes"""
-
 from pathlib import Path
 import string
 import random
 import numpy as np
 import pandas as pd
+import sklearn.model_selection
 
 import hermes.stroke_regressor
 
@@ -85,7 +85,8 @@ def test_normalize_standard():
 
 def test_statistics_mean_age():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
-    data = hermes.stroke_regressor.read_data(file_loc)
+    csv = hermes.stroke_regressor.read_data(file_loc)
+    data, _ = csv.iloc[:, :-1], csv.iloc[:, -1]
     total = sum(data['age'])
     hypertension_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='hypertension', target=1)
     not_hypertension_age = hermes.stroke_regressor.statistics(data, stats_type='mean_age', col='hypertension', target=0)
@@ -141,7 +142,8 @@ def test_add_data():
 
 def test_remove_col():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
-    data = hermes.stroke_regressor.read_data(file_loc)
+    csv = hermes.stroke_regressor.read_data(file_loc)
+    data, _ = csv.iloc[:, :-1], csv.iloc[:, -1]
     columns = data.columns
     for col in columns:
         new_data = data.drop([col], axis=1)
@@ -165,67 +167,70 @@ def test_create_bar_plot():
     assert result == [100, 120, 50]
 
 
-def test_linear_regression():
+def test_perceptron():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
-    data = hermes.stroke_regressor.read_data(file_loc)
+    csv = hermes.stroke_regressor.read_data(file_loc)
+    data, y = csv.iloc[:, :-1], csv.iloc[:, -1]
     data = hermes.stroke_regressor.one_hot(data)
     data.fillna(data['bmi'].mean(), inplace=True)  # pylint: disable=unsubscriptable-object
-    a = data.astype(np.float64).to_numpy()
-    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'coef')
-    assert np.allclose(coef, np.array([-1.1574462149573293e-18, 3.419088876507203e-17, -3.9205165534584025e-16,
-                                       -1.4155062715314148e-17, 3.927994092015258e-17, -9.523883523664444e-16,
-                                       -5.683557029752764e-16, -7.00727650591634e-16, 9.977235206953956e-16,
-                                       -2.080232712684715e-16, -2.7369826322273065e-16, 1.5374108564703447e-16,
-                                       1.4253092326172553e-17, -2.815903077890237e-17, 3.7470388052664107e-16,
-                                       -3.821081183930575e-16, 4.1102650480927346e-17, -7.306152541490587e-18,
-                                       -0.9999999999999997, -1.0000000000000002, -1.0000000000000004]))
+    a = hermes.stroke_regressor.normalize(data).astype(np.float64)
+    coef = hermes.stroke_regressor.perceptron(a[:, 1:], y, 'coef')
+    print(coef)
+    assert np.allclose(coef, np.array(
+        [8.59960938, 1., 4., 1.43887914, -0.49263141, -3., -2., 0., -1., -4., -3., 0., 0., -3., 1., -2., -3., -2., -2.,
+         0., -1.]
+    ))
 
 
 def test_top_coef():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
-    data = hermes.stroke_regressor.read_data(file_loc)
+    csv = hermes.stroke_regressor.read_data(file_loc)
+    data, y = csv.iloc[:, :-1], csv.iloc[:, -1]
     data = hermes.stroke_regressor.one_hot(data)
     parameters = data.columns
     data.fillna(data['bmi'].mean(), inplace=True)
-    a = data.astype(np.float64).to_numpy()
-    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'coef')
+    a = hermes.stroke_regressor.normalize(data).astype(np.float64)
+    coef = hermes.stroke_regressor.perceptron(a[:, 1:], y, 'coef')
     ans = hermes.stroke_regressor.top_coef(coef, parameters[1:])
-    assert ans == 'smoking_status_never smoked'
+    assert ans == 'age'
 
 
 def test_bottom_coef():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
-    data = hermes.stroke_regressor.read_data(file_loc)
+    csv = hermes.stroke_regressor.read_data(file_loc)
+    data, y = csv.iloc[:, :-1], csv.iloc[:, -1]
     data = hermes.stroke_regressor.one_hot(data)
     parameters = data.columns
     data.fillna(data['bmi'].mean(), inplace=True)
-    a = data.astype(np.float64).to_numpy()
-    coef = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'coef')
+    a = hermes.stroke_regressor.normalize(data).astype(np.float64)
+    coef = hermes.stroke_regressor.perceptron(a[:, 1:], y, 'coef')
     ans = hermes.stroke_regressor.bottom_coef(coef, parameters[1:])
-    assert ans == 'avg_glucose_level'
+    assert ans == 'gender_Other'
 
 
 def test_intercept():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
-    data = hermes.stroke_regressor.read_data(file_loc)
+    csv = hermes.stroke_regressor.read_data(file_loc)
+    data, y = csv.iloc[:, :-1], csv.iloc[:, -1]
     data = hermes.stroke_regressor.one_hot(data)
     data.fillna(data['bmi'].mean(), inplace=True)  # pylint: disable=unsubscriptable-object
-    a = data.astype(np.float64).to_numpy()
-    intercept = hermes.stroke_regressor.linear_regression(a[1:, 1:-1], a[1:, -1], 'intercept')
-    assert abs(intercept - 1) < 0.0001
+    a = hermes.stroke_regressor.normalize(data).astype(np.float64)
+    intercept = hermes.stroke_regressor.perceptron(a[:, 1:], y, 'intercept')
+    assert np.allclose(intercept, -5.)
 
 
-def test_score():
+def test_train_validate():
     file_loc = 'data/healthcare-dataset-stroke-data.csv'
-    data = hermes.stroke_regressor.read_data(file_loc)
+    csv = hermes.stroke_regressor.read_data(file_loc)
+    data, y = csv.iloc[:, :-1], csv.iloc[:, -1]
     data = hermes.stroke_regressor.one_hot(data)
-    data.fillna(data['bmi'].mean(), inplace=True)  # pylint: disable=unsubscriptable-object
-    a = data.astype(np.float64).to_numpy()
-    X = a[1:, 1:-1]
-    y = a[1:, -1]
-    score = hermes.stroke_regressor.linear_regression(X, y, 'score')
-    coef = hermes.stroke_regressor.linear_regression(X, y, 'coef')
-    intercept = hermes.stroke_regressor.linear_regression(X, y, 'intercept')
-    total = np.sum(y - np.mean(y) ** 2)
-    residual = np.sum((y - (X @ coef + intercept)) ** 2)
-    assert score == 1 - residual / total
+    data.fillna(data['bmi'].mean(), inplace=True)
+    a = hermes.stroke_regressor.normalize(data).astype(np.float64)
+    X = a[:, 1:]
+    y = y.to_numpy()
+
+    X_train, X_val, y_train, y_val = sklearn.model_selection.train_test_split(X, y, test_size=0.1, random_state=1337,
+                                                                              shuffle=False)
+
+    reg = hermes.stroke_regressor.perceptron(X_train, y_train)
+    assert reg.score(X_val, y_val) > 0.95
