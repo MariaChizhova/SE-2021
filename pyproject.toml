@@ -13,7 +13,7 @@ license = "MIT"
 "Roadmap" = "https://github.com/MariaChizhova/SE_2021/projects/3"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "3.8.*"
 numpy = "*"
 pandas = "*"
 scikit-learn = "*"
