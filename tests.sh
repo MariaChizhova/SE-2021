@@ -30,13 +30,6 @@ if [ "$#" -eq 0 ]; then
     exit 0
 fi
 
-if ! [ -d "venv" ]; then
-    echo "Run ./init.sh before running ./tests.sh"
-    exit 1
-fi
-
-source venv/bin/activate
-
 l_pylint=0
 l_flake8=0
 l_mypy=0

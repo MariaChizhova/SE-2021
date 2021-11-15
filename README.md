@@ -10,11 +10,47 @@ Project presentation is available [here](https://docs.google.com/presentation/d/
 
 The project is currently in an initial state.
 
-## Usage
+## Instructions
 
-Run web application:  uvicorn hermes.endpoints:app --reload
+### Install
 
-Run tests: python -m pytest test/test_data_reading.py
+`pip install hermes-se2021`
+
+### Build from source
+
+```bash
+git clone git@github.com:MariaChizhova/SE_2021.git
+cd SE_2021
+
+python3 -m pip install poetry
+poetry install
+```
+
+#### Install from source
+```bash
+poetry build
+python3 -m pip install "$(find dist -name "*.whl" -print -quit)"
+```
+
+### Usage
+
+#### Run web application:
+
+```bash
+poetry run uvicorn hermes.endpoints:app --reload
+```
+
+#### Using as a library
+```python
+import hermes
+import hermes.stroke_regressor
+```
+
+### Tests
+
+```
+poetry run ./tests.sh all
+```
 
 ## Roadmap
 
@@ -39,6 +75,21 @@ Jura Khudyakov: @23jura23
 ## Contributing
 
 Pull requests are welcome!
+
+### Additional instructions
+
+#### Develop in venv with all dependencies:
+
+After executing `poetry install`:
+
+- Use `poetry shell` to launch a shell with all dependencies
+- For usage with PyCharm one can use virtual environment from `~/.cache/pypoetry/virtualenvs` 
+
+#### Deploying to PyPi repository
+
+```bash
+poetry publish
+```
 
 ## License
 

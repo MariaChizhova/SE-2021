@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "hermes_se2021"
+version = "1.0.0"
+description = "A small tool for data collection and processing for SE2021 HSE SPb course"
+authors = ["Jura Khudyakov <catchitoo@mail.ru>", "Maria Chizhova <>", "Anna Potryasaeva <potryasaeva.anna@mail.ru>"]
+packages = [ { include = "hermes" } ]
+repository = "https://github.com/MariaChizhova/SE_2021"
+
+[tool.poetry.urls]
+"Wiki" = "https://github.com/MariaChizhova/SE_2021/wiki"
+"Roadmap" = "https://github.com/MariaChizhova/SE_2021/projects/3"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "*"
+pandas = "*"
+scikit-learn = "*"
+matplotlib = "*"
+fastapi = "*"
+uvicorn = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+coverage = "*"
+flake8 = "*"
+mypy = "*"
+pylint = "*"
+
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "fastapi",
+    "uvicorn"
+]
+build-backend = "setuptools.build_meta"

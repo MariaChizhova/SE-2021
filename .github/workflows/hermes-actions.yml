@@ -10,21 +10,23 @@ jobs:
           python-version: '3.8'
 
       - name: Setup
-        run: ./init.sh python3
+        run: | 
+          python3 -m pip install poetry
+          poetry install
 
       - name: PyLint
         if: always()
-        run: ./tests.sh pylint
+        run: poetry run ./tests.sh pylint
       
       - name: Flake8
         if: always()
-        run: ./tests.sh flake8
+        run: poetry run ./tests.sh flake8
 
       - name: Mypy
         if: always()
-        run: ./tests.sh mypy
+        run: poetry run ./tests.sh mypy
 
       - name: Coverage 95%
         if: always()
-        run: ./tests.sh coverage95
+        run: poetry run ./tests.sh coverage95
 
