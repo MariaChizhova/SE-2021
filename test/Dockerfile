@@ -17,6 +17,6 @@ COPY --chown=hermes:hermes . .
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
 ENV PATH="/home/hermes/.poetry/bin:${PATH}"
-RUN poetry install --no-dev
+RUN poetry install
 
-CMD ["/bin/bash", "-c", "poetry run uvicorn hermes.endpoints:app --reload"]
+CMD ["/bin/bash", "-c", "poetry run ./tests.sh all"]
