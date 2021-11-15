@@ -1,5 +1,7 @@
 FROM python:3
 
+WORKDIR /root/hermes
+
 COPY . .
 
 RUN python3 -m pip install poetry
