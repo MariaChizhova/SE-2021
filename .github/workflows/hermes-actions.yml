@@ -39,10 +39,10 @@ jobs:
         if: always()
         run: |
           docker build . -t 23jura23/hermes_se2021:ci
-          timeout --preserve-status -s SIGINT 5 docker run 23jura23/hermes_se2021:ci
+          timeout --preserve-status -s SIGINT 5 docker run -p 8000:8000 23jura23/hermes_se2021:ci
 
       - name: Docker tests
         if: always()
         run: |
-          docker build . -t 23jura23/hermes_se2021:ci_tests -f test/Dockerfile
-          docker run 23jura23/hermes_se2021:ci_tests
+          docker build . -t 23jura23/hermes_se2021_tests:ci -f test/Dockerfile
+          docker run -p 8000:8000 23jura23/hermes_se2021_tests:ci
