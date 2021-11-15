@@ -40,6 +40,7 @@ jobs:
         run: |
           docker build . -t 23jura23/hermes_se2021:ci
           timeout --preserve-status -s SIGINT 15 docker run -p 8000:8000 23jura23/hermes_se2021:ci &
+          sleep 5
           wget http://127.0.0.1:8000/statistics/mean_age/ever_married/Yes
 
       - name: Docker tests
