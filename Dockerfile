@@ -19,4 +19,4 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/inst
 ENV PATH="/home/hermes/.poetry/bin:${PATH}"
 RUN poetry install --no-dev
 
-CMD ["/bin/bash", "-c", "poetry run uvicorn hermes.endpoints:app --reload"]
+CMD ["/bin/bash", "-c", "poetry run uvicorn hermes.endpoints:app --host 0.0.0.0 --reload"]
