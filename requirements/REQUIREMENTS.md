@@ -1,23 +1,22 @@
-## Классы пользователей проекта:
-* Любой пользователь интернета, которому интересно посмотреть какую-то статистику
-* Пользователи, которым нужны данные для различных исследований
-* Работники медучреждений, которые могут добавлять свои данные
-* Модераторы, которые будут работу продукта и добавлять новые данные + следить, чтобы остальные пользователи не нарушали данные
-* Сотрудник медучереждения: обычный пользователь + может загружать данные (на это есть права у него, как-то модератор это подтвердит, пройдя проверку)
+## Types of project users:
+* Any Internet user who is interested in looking at some statistics
+* Users who need data for various studies
+* Medical workers who can upload their data
+* Moderators who will work on the the product and upload new data + make sure that other users do not violate website policy/rules
+* An employee of a medical institution: an ordinary user + can upload data (they have the rights to do this, somehow the moderator will confirm this after passing the check) 
 
-## Use case диаграмма
+## Use case diagram
 
 ![](hwse.drawio.png)
 
-## User Story 
-* Как работник медучереждения, я хочу уметь возможность удобно выгружать данные, чтобы потом другие пользователи могли их использовать для своих исследований
-* Как исследователь, я хочу иметь возможность получать данные по различным критериям, чтобы использовать для своих исследований
-* Как исследователь, я хочу иметь возможность зайти на сайт и зарегистрироваться, чтобы иметь возможность сохранять какую-нибудь информацию (например, датасеты добавлять в закладки или еще что-то) у себя в личном кабинете
-* Как модератор я хочу иметь возможность проверить кто и откуда загружает данные, чтобы проверять их достоверность
+## User Story
+* As a healthcare worker, I want to be able to conveniently upload data so that other users can use it for their research
+* As a researcher, I want to be able to receive data according to various criteria so that I can use it in  my research
+* As a researcher, I want to be able to go to the website and register to be able to save some information (for example, add datasets to bookmarks or something else) in my personal account so I can have easy access to it
+* As a moderator, I want to be able to check who is uploading the data so that I can check its quality
 
 ## Job Story
-* Когда я провожу исследование, хочется уметь искать данные по определенным критериям, чтобы это соответствовало тематике моего исследования
-* Когда много данных, хочется понимать откуда они приходят и рейтинг этих мест, чтобы понимать насколько они достоверны
-* Когда пациент чем-то болеет, то хочется посмотреть на людей с похожими данными и статистику, чтобы заранее выявить какие-то заболевания
-* Когда нужна какая-то информация, хочется получать самую новую, чтобы мои результаты исследований основывались на актуальной информации
-
+* When I conduct research, I want to be able to search for data according to certain criteria so that it matches the topic of my research
+* When there is a lot of data, I want to understand where they come from and the rating of these places so I can understand how reliable they are
+* When a patient is sick, you want to look at people with similar characteristics so I can identify possible diseases in advance
+* When I need some information, I want to receive fresh data, so that my research results are based on the recent information
