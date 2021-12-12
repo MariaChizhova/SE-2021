@@ -7,7 +7,7 @@
 
 ## Use case diagram
 
-![](SEhw.png)
+![](SeDiagram.png)
 
 ## User Story
 * As a healthcare worker, I want to be able to conveniently upload data so that other users can use it for their research
