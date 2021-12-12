@@ -2,7 +2,7 @@
 name = "hermes_se2021"
 version = "1.0.1"
 description = "A small tool for data collection and processing for SE2021 HSE SPb course"
-authors = ["Jura Khudyakov <catchitoo@mail.ru>", "Maria Chizhova <>", "Anna Potryasaeva <potryasaeva.anna@mail.ru>"]
+authors = ["Jura Khudyakov <catchitoo@mail.ru>", "Maria Chizhova <mariachizhova17@gmail.com>", "Anna Potryasaeva <potryasaeva.anna@mail.ru>"]
 packages = [ { include = "hermes" } ]
 repository = "https://github.com/MariaChizhova/SE_2021"
 readme = "README.md"
@@ -13,7 +13,7 @@ license = "MIT"
 "Roadmap" = "https://github.com/MariaChizhova/SE_2021/projects/3"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "3.8.*"
 numpy = "*"
 pandas = "*"
 scikit-learn = "*"
