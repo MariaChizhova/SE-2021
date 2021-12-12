@@ -1,0 +1,32 @@
+name: Hermes Testing
+on: [push]
+jobs:
+  TestingAndLinters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Setup
+        run: | 
+          python3 -m pip install poetry
+          poetry install
+
+      - name: PyLint
+        if: always()
+        run: poetry run ./tests.sh pylint
+      
+      - name: Flake8
+        if: always()
+        run: poetry run ./tests.sh flake8
+
+      - name: Mypy
+        if: always()
+        run: poetry run ./tests.sh mypy
+
+      - name: Coverage 95%
+        if: always()
+        run: poetry run ./tests.sh coverage95
+
