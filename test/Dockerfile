@@ -19,4 +19,6 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/inst
 ENV PATH="/home/hermes/.poetry/bin:${PATH}"
 RUN poetry install
 
+EXPOSE 8000
+
 CMD ["/bin/bash", "-c", "poetry run ./tests.sh all"]
