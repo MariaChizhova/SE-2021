@@ -56,7 +56,7 @@ poetry run ./tests.sh all
 
 You can also run the web application in Docker
 ```bash
-docker run -p 8000:8000 hermes_se2021/hermes_se2021:1.0.1
+docker run -p 8000:8000 hermesse2021/hermes_se2021:1.0.1
 ```
 
 ## Roadmap
@@ -101,14 +101,14 @@ poetry publish
 #### Building Docker images from source
 
 ```bash
-docker build . -t hermes_se2021/hermes_se2021:your_tag
-docker run -p 8000:8000 hermes_se2021/hermes_se2021:your_tag
+docker build . -t hermesse2021/hermes_se2021:your_tag
+docker run -p 8000:8000 hermesse2021/hermes_se2021:your_tag
 ```
 
 You can also run tests in Docker:
 ```bash
-docker build . -t hermes_se2021/hermes_se2021_tests:your_tag -f test/Dockerfile
-docker run -p 8000:8000 hermes_se2021/hermes_se2021_tests:your_tag
+docker build . -t hermesse2021/hermes_se2021_tests:your_tag -f test/Dockerfile
+docker run -p 8000:8000 hermesse2021/hermes_se2021_tests:your_tag
 ```
 
 ## License
