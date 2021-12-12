@@ -30,13 +30,6 @@ if [ "$#" -eq 0 ]; then
     exit 0
 fi
 
-if ! [ -d "venv" ]; then
-    echo "Run ./init.sh before running ./tests.sh"
-    exit 1
-fi
-
-source venv/bin/activate
-
 l_pylint=0
 l_flake8=0
 l_mypy=0
@@ -84,11 +77,11 @@ if [[ $l_pylint == 1 ]]; then
 fi
 
 if [[ $l_flake8 == 1 ]]; then
-python -m flake8 --max-line-length=120 hermes test
+    python -m flake8 --max-line-length=120 hermes test
 fi
 
 if [[ $l_mypy == 1 ]]; then
-python -m mypy --ignore-missing-imports hermes test
+    python -m mypy --ignore-missing-imports hermes test
 fi
 
 if [[ $l_test == 1 && $l_coverage == 0 ]]; then
