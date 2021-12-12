@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Version 1.0]
+## 2021-11-08, Version 1.0
 
 ### Added
 
@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 * Several bugs with tests
 
-## [Version 1.1]
+## 2021-11-09, Version 1.1
 
 ### Added
 
