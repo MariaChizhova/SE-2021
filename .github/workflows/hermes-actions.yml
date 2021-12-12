@@ -38,13 +38,13 @@ jobs:
       - name: Docker minimal
         if: always()
         run: |
-          docker build . -t 23jura23/hermes_se2021:ci
-          timeout --preserve-status -s SIGINT 15 docker run -p 8000:8000 23jura23/hermes_se2021:ci &
+          docker build . -t hermes_se2021/hermes_se2021:ci
+          timeout --preserve-status -s SIGINT 15 docker run -p 8000:8000 hermes_se2021/hermes_se2021:ci &
           sleep 5
           wget http://127.0.0.1:8000/statistics/mean_age/ever_married/Yes
 
       - name: Docker tests
         if: always()
         run: |
-          docker build . -t 23jura23/hermes_se2021:ci_tests -f test/Dockerfile
-          docker run -p 8000:8000 23jura23/hermes_se2021:ci_tests
+          docker build . -t hermes_se2021/hermes_se2021:ci_tests -f test/Dockerfile
+          docker run -p 8000:8000 hermes_se2021/hermes_se2021:ci_tests
