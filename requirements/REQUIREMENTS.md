@@ -18,5 +18,5 @@
 ## Job Story
 * When I conduct research, I want to be able to search for data according to certain criteria so that it matches the topic of my research
 * When there is a lot of data, I want to understand where they come from and the rating of these places so I can understand how reliable they are
-* When a patient is sick, you want to look at people with similar characteristics so I can identify possible diseases in advance
+* When a patient is sick, I want to look at people with similar characteristics so I can identify possible diseases in advance
 * When I need some information, I want to receive fresh data, so that my research results are based on the recent information
